@@ -9,24 +9,6 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: 'Developer Portfolio',
   description: 'Software Developer Portfolio - Building modern web applications',
-  generator: 'v0.app',
-  icons: {
-    icon: [
-      {
-        url: '/profile.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/profile.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/profile.png',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
-  },
 }
 
 export default function RootLayout({
