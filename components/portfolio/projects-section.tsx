@@ -3,6 +3,13 @@
 import { Github, ExternalLink, Folder } from "lucide-react";
 import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 
 const projects = [
   {
@@ -19,9 +26,78 @@ const projects = [
     technologies: ["Next.js", "TypeScript", "Prisma", "PostgreSQL"],
     github: "https://github.com",
     demo: "https://example.com",
-    image: "/image/profile.jpeg",
+    images: [
+      "/nash/main.png",
+      "/nash/maininput.png",
+      "/nash/mainpreview.png",
+      "/nash/pmmm_param.png",
+      "/nash/pmmm.png",
+      "/nash/radio_mm.png",
+      "/nash/template_mm_param.png",
+      "/nash/template_mm_script.png",
+      "/nash/templatemm.png",
+    ],
   }
 ];
+
+function ProjectImage({ images, title }: { images: string[]; title: string }) {
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+
+    setCurrent(api.selectedScrollSnap());
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
+  const handleNext = (e: React.MouseEvent) => {
+    // Prevent clicking from triggering parent link or other events if any
+    e.preventDefault();
+    e.stopPropagation();
+    api?.scrollNext();
+  };
+
+  return (
+    <div className="relative group/carousel cursor-pointer h-[450px]" onClick={handleNext}>
+      <Carousel setApi={setApi} className="w-full h-full" opts={{ loop: true }}>
+        <CarouselContent className="ml-0 h-full">
+          {images.map((image, index) => (
+            <CarouselItem key={index} className="pl-0 h-full">
+              <div className="relative w-full h-full overflow-hidden border-b border-border">
+                <Image
+                  src={image}
+                  alt={`${title} - image ${index + 1}`}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  priority={index === 0}
+                />
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+
+      {/* Horizontal Bar Indicators */}
+      {images.length > 1 && (
+        <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 px-4 z-10 pointer-events-none">
+          {images.map((_, index) => (
+            <div
+              key={index}
+              className={cn(
+                "h-1 rounded-full transition-all duration-300 shadow-sm",
+                index === current ? "w-10 bg-primary" : "w-6 bg-primary/20 backdrop-blur-sm"
+              )}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 function AnimatedCard({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -67,7 +143,9 @@ export function ProjectsSection() {
         {projects.map((project, index) => (
           <AnimatedCard key={index} delay={index * 150}>
             <div className="card-hover overflow-hidden rounded-xl bg-card border border-border group flex flex-col h-full">
-              {project.image && (
+              {project.images ? (
+                <ProjectImage images={project.images} title={project.title} />
+              ) : project.image && (
                 <div className="relative w-full h-64 overflow-hidden border-b border-border">
                   <Image
                     src={project.image}
