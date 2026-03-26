@@ -11,14 +11,31 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 
-const projects = [
+interface Project {
+  title: string;
+  description: string;
+  technologies: string[];
+  github: string;
+  demo?: string;
+  image?: string;
+  images?: string[];
+}
+
+const projects: Project[] = [
   {
     title: "Research Management System",
     description: "A full-stack e-commerce solution with real-time inventory management, secure payments, and admin dashboard.",
     technologies: ["React", "Node.js", "MongoDB", "Stripe"],
     github: "https://github.com",
     demo: "https://example.com",
-    image: "/image/profile.jpeg",
+    images: [
+      "/reserch/main.jpeg",
+      "/reserch/mainlogin.jpeg",
+      "/reserch/mm.jpeg",
+      "/reserch/profile.jpeg",
+      "/reserch/re.jpeg",
+      "/reserch/summury.jpeg",
+    ],
   },
   {
     title: "Nash_GUI",
@@ -143,17 +160,19 @@ export function ProjectsSection() {
         {projects.map((project, index) => (
           <AnimatedCard key={index} delay={index * 150}>
             <div className="card-hover overflow-hidden rounded-xl bg-card border border-border group flex flex-col h-full">
-              {project.images ? (
+              {project.images && project.images.length > 0 ? (
                 <ProjectImage images={project.images} title={project.title} />
-              ) : project.image && (
-                <div className="relative w-full h-64 overflow-hidden border-b border-border">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
+              ) : (
+                project.image && (
+                  <div className="relative w-full h-64 overflow-hidden border-b border-border">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                )
               )}
 
               <div className="p-6 flex-1 flex flex-col">
