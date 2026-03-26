@@ -24,8 +24,8 @@ interface Project {
 const projects: Project[] = [
   {
     title: "Research Management System",
-    description: "A full-stack e-commerce solution with real-time inventory management, secure payments, and admin dashboard.",
-    technologies: ["React", "Node.js", "MongoDB", "Stripe"],
+   description: "A full-stack web application for managing academic research and publications, featuring role-based access, multi-author support, and an intuitive dashboard for tracking research data.",
+    technologies: ["Angular", "PHP", "MySQL", "Bootstrap"],
     github: "https://github.com",
     demo: "https://example.com",
     images: [
@@ -39,7 +39,7 @@ const projects: Project[] = [
   },
   {
     title: "Nash_GUI",
-    description: "Collaborative task management application with drag-and-drop interface, team features, and real-time updates.",
+   description: "A web application that helps researchers and operators generate radio telescope Observation Scripts without manual coding by using customizable templates and automated parameter configuration.",
     technologies: ["Next.js", "TypeScript", "Prisma", "PostgreSQL"],
     github: "https://github.com",
     demo: "https://example.com",
