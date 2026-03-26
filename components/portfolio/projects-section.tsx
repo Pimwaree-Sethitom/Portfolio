@@ -23,7 +23,7 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "Research Management System fdfdf",
+    title: "Research Management System",
     description: "A full-stack e-commerce solution with real-time inventory management, secure payments, and admin dashboard.",
     technologies: ["React", "Node.js", "MongoDB", "Stripe"],
     github: "https://github.com",
